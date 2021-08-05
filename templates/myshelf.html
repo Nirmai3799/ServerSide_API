@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+<html>
+    <body align="center">
+        <div class="d">
+           
+            <a href="{{url_for('dashboard')}}" style="display:inline-block"><b class="d">Dashboard</b></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{{url_for('logout')}}" style="display:inline-block"><b class="d">Logout</b></a>
+    </div>
+    <h3 style="color:#F8485E; font-size:2rem;">Books in My Shelf</h3>
+    <div class="c"><br>
+        
+        <table align="center" class="table table-inverse" border = "1" width = "500" height = "150">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">NAME</th>
+                <th scope="col">AUTHOR</th>
+                <th scope="col">YEAR</th>
+              </tr>
+            </thead>
+              {% for i in m %}
+              <tr>
+                <td><div><form action="{{url_for('myshelfdel')}}" method="POST">
+                  <button name="shelfd" value={{i.isbn}} class="dsh">Delete</button>
+                </form></div>
+                </td>
+              <td>{{i.isbn}}
+              </td>
+              <td>{{i.name}}
+              </td>
+              <td>{{i.author}}
+              </td>
+              <td>{{i.year}}
+              </td>
+              </tr>
+              {% endfor %}
+          </table><br>
+          </div>
+
+    </body>
+</html>

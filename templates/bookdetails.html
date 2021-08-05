@@ -1,0 +1,124 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /> 
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css	" rel="stylesheet" id="bootstrap-css"> -->
+<link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+<html>
+    <head>
+        <title>
+            sample details
+        </title>
+    </head>
+    <body align="center">
+      <div class="d">
+        <a href="{{url_for('dashboard')}}" style="display:inline-block"><b class="d">Dashboard</b></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{{url_for('myshelf')}}" style="display:inline-block"><b class="d">MyShelf</b></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{{url_for('logout')}}" style="display:inline-block"><b class="d">Logout</b></a>
+</div>
+        <div class="c"><br>
+        <table align="center" class="table table-inverse" border = "1" width = "500" height = "150">
+            <thead>
+              <tr>
+                <th scope="col">ISBN</th>
+                <th scope="col">NAME</th>
+                <th scope="col">AUTHOR</th>
+                <th scope="col">YEAR</th>
+              </tr>
+            </thead>
+              {% for i in bdetails %}
+              <tr>
+              <td>{{i.isbn}}
+              </td>
+              <td>{{i.name}}
+              </td>
+              <td>{{i.author}}
+              </td>
+              <td>{{i.year}}
+              </td>
+              </tr>
+              {% endfor %}
+          </table><br>
+          </div>
+         {% if clen>0 %}
+          <div class="c">
+            <h3>You are already given a review</h3>
+           <div>
+            <p>Your Review is : {{Ulist[0].review}}</p>
+            <p>You are given rating: {{Ulist[0].rating}}</p>
+        
+          </div>
+            <br>
+            </div>
+            {% endif %}
+          <div class="c">
+            <h2 align="center">All Reviews on this book</h2>
+            {% if lenlist>0 %}
+            {% for i in revlist %}
+            <li>{{i.review}}</li>
+            {% endfor %}
+            <br>
+            {% else %}
+            <li>No Reviews</li>
+            <br>
+            {% endif %}
+           
+            <!-- <table align="center" class="table table-inverse" border = "1" width = "500" height = "150">
+                <thead>
+                  <tr>
+                    <th scope="col">Reviews</th>
+                  </tr>
+                </thead>
+                  {% for i in revlist %}
+                  <tr>
+                  <td>{{i.review}}
+                  </td>
+                  </tr>
+                  {% endfor %}
+              </table><br> -->
+              </div>
+
+          <!-- <h1>{{bdetails[0].isbn}}</h1> -->
+          {% if 1>clen %}
+          <div class="b">
+            <p class="r">Rating: </p>
+            <!-- <h4>Please search for the books in below</h4> -->
+        <form action="{{url_for('review')}}" method="POST">
+         
+          <div class="stars">
+            
+            <input class="star star-5" id="star-5" type="radio" value="5" name="star"/>
+            <label class="star star-5" for="star-5"></label>
+            <input class="star star-4" id="star-4" type="radio" value="4" name="star"/>
+            <label class="star star-4" for="star-4"></label>
+            <input class="star star-3" id="star-3" type="radio" value="3" name="star"/>
+            <label class="star star-3" for="star-3"></label>
+            <input class="star star-2" id="star-2" type="radio" value="2" name="star"/>
+            <label class="star star-2" for="star-2"></label>
+            <input class="star star-1" id="star-1" type="radio" value="1" name="star"/>
+            <label class="star star-1" for="star-1"></label>
+          </div>
+            <div class="form px-4 pt-5"> <br>
+            <input type="text" name="review" id="review" class="a" placeholder="Enter review">
+            <button name="reisbn" value={{bdetails[0].isbn}} class="e">Submit</button>
+            <!-- <input name="reisbn" type="submit" value={{bdetails[0].isbn}} class="e"> -->
+            <br><br>
+            </div>
+        </form>
+        </div>
+        {% endif %}
+        {% if 1>addl %}
+        <br>
+        <div>
+          <form action="{{url_for('myshelfadd')}}" method="POST">
+          <button name="shelf" value={{bdetails[0].isbn}} class="sh">Add to Shelf</button>
+        </form>
+        </div>
+        {% else %}
+        <br>
+        <div>
+          <form action="{{url_for('myshelfdel')}}" method="POST">
+          <button name="shelfd" value={{bdetails[0].isbn}} class="sh">Delete from Shelf</button>
+        </form>
+        </div>
+        {% endif %}
+        <!-- <a href="{{url_for('logout')}}"><b class="d">Logout</b></a> -->
+    </body>
+</html>
